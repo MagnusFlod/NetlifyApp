@@ -29,4 +29,18 @@ exports.handler = async (event) =>
         statusCode: 405,
         body: JSON.stringify({ error: 'Method Not Allowed' })
     };
+
+    if (httpMethod === 'DELETE')
+    {
+        const { id } = JSON.parse(body);
+
+        const index = guitars.findIndex(g => g.id === id);
+
+        const deletedGuitar = guitars.splice(index, 1);
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(deletedGuitar[0])
+        };
+    }
 };
